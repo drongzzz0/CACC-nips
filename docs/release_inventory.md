@@ -33,6 +33,9 @@ Remote inspection was read-only. The source project is not a git repository.
 - `scripts/check_reproduction_bundle.py`: standard-library helper for checking
   whether local datasets, models, adapters, and summaries exist before a full
   reproduction attempt.
+- `scripts/export_reproduction_report.py`: standard-library helper for
+  exporting a compact markdown/CSV Table 1 reproduction-status report from the
+  target manifest.
 
 ## Excluded
 
@@ -55,5 +58,6 @@ Remote inspection was read-only. The source project is not a git repository.
 - Run `python scripts/run_minimum_pipeline.py --allow-stub`.
 - Run `python scripts/compare_reproduction_metrics.py`.
 - Run `python scripts/check_reproduction_bundle.py --row compmath/cacc_spp`.
+- Run `python scripts/export_reproduction_report.py --markdown-output runs/reproduction_report.md --csv-output runs/reproduction_report.csv`.
 - Run a large-file check before commit.
 - Run a sensitive-string scan before commit.

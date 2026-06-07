@@ -74,6 +74,14 @@ python scripts/check_reproduction_bundle.py \
   --row compmath/cacc_spp
 ```
 
+To export the current release-facing Table 1 reproduction report:
+
+```bash
+python scripts/export_reproduction_report.py \
+  --markdown-output runs/reproduction_report.md \
+  --csv-output runs/reproduction_report.csv
+```
+
 ## Main CACC Entry Points
 
 Tag an existing candidate pool with heuristic motif and quality labels:
