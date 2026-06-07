@@ -79,7 +79,7 @@ Recovered provenance for that fallback:
 
 | Dataset | Variant | Paper final | Internal status |
 | --- | --- | ---: | --- |
-| MMLU-Pro | SPP | 0.2663 | long Qwen3-8B generation still running; last checked 2026-06-07 21:41 CST, parent PID `795448` and generator child PID `795452` alive on GPU0, no candidate pool or final summary written yet |
+| MMLU-Pro | SPP | 0.2663 | long Qwen3-8B generation still running; last checked 2026-06-07 21:51 CST, parent PID `795448` and generator child PID `795452` alive on GPU0, no candidate pool or final summary written yet |
 
 Update this file after those runs finish.
 
