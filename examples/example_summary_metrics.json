@@ -1,0 +1,8 @@
+{
+  "total_examples": 1319,
+  "oracle_coverage": 0.488248673237301,
+  "selection_efficiency_given_oracle": {
+    "verifier": 0.5885093167701864
+  },
+  "verifier_accuracy": 0.287338893100834
+}

@@ -84,6 +84,25 @@ Update this file after those runs finish.
 
 ## Command Templates
 
+Before comparing regenerated runs with the paper table, inspect the release
+targets:
+
+```bash
+python scripts/compare_reproduction_metrics.py
+```
+
+After a run writes an analysis summary JSON, compare it with the corresponding
+row id:
+
+```bash
+python scripts/compare_reproduction_metrics.py \
+  --summary compmath/cacc_spp=runs/compmath_salvage_repair_fallback/summary.json
+```
+
+The target manifest is `configs/reproduction_targets.json`. It records paper
+O/V/F values, current release status, and the closest release-facing rerun or
+fallback reference where exact paper-row provenance is not currently recovered.
+
 Direct SPP-style generation plus reranking:
 
 ```bash

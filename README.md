@@ -16,7 +16,7 @@ artifacts, remote launch scripts, and large archives.
 - `scripts/`: Python entrypoints for candidate generation, CACC-style
   completion construction, reranking/evaluation, analysis, and paper-table
   aggregation.
-- `configs/`: small configuration templates.
+- `configs/`: small configuration templates and Table 1 reproduction targets.
 - `examples/`: synthetic JSONL data for smoke testing the pipeline.
 - `docs/release_inventory.md`: what was included, what was excluded, and why.
 - `docs/reproduction_status.md`: current internal full-run reproduction status,
@@ -47,6 +47,20 @@ python scripts/run_minimum_pipeline.py --allow-stub
 This writes outputs under `runs/minimum_pipeline/` and verifies that the JSONL
 schemas, supervision conversion, stub training manifest, prediction file, and
 exact-match report can be produced end to end.
+
+To inspect the current Table 1 reproduction targets and compare a full-run
+summary JSON against the paper values:
+
+```bash
+python scripts/compare_reproduction_metrics.py
+
+python scripts/compare_reproduction_metrics.py \
+  --summary gsm8k/base=examples/example_summary_metrics.json
+```
+
+Use row ids such as `gsm8k/cacc_spp`, `compmath/cacc_spp`,
+`mmlu_pro/spp`, and `gpqa/spp`. The manifest is
+`configs/reproduction_targets.json`.
 
 ## Main CACC Entry Points
 
