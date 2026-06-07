@@ -1,0 +1,55 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Local outputs
+runs/
+outputs/
+logs/
+checkpoints/
+models/
+datasets/
+data/
+tmp/
+cache/
+.cache/
+
+# Large research artifacts
+*.jsonl
+!examples/*.jsonl
+*.log
+*.out
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.pt
+*.pth
+*.bin
+*.safetensors
+*.ckpt
+
+# Paper/build byproducts
+*.aux
+*.bbl
+*.blg
+*.fls
+*.fdb_latexmk
+*.log
+*.out
+*.pdf
+
+# Local editor/OS files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

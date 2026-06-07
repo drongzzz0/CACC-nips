@@ -1,0 +1,17 @@
+run_name: qwen35_subgoals_pilot
+student_model: Qwen/Qwen2.5-1.5B-Instruct
+teacher_model: qwen3.5-placeholder-teacher
+dataset: ../../datasets/sft/gsm8k_subgoals_then_answer.jsonl
+supervision_type: subgoals_then_answer
+training_backend: peft_lora
+learning_rate: 2.0e-4
+epochs: 1
+batch_size: 1
+grad_accum: 1
+max_length: 512
+lora_rank: 8
+lora_alpha: 16
+lora_dropout: 0.05
+notes:
+  - Replace the student model with the exact Qwen3.5-family checkpoint selected for the run.
+  - Install requirements-peft.txt before requesting backend peft.
