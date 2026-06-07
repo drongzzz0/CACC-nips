@@ -61,7 +61,10 @@ Recovered provenance for that fallback:
 The MMLU-Pro heterogeneous-pool fallback is based on a recovered full-size pool
 merge over 12,032 examples. It merges the base pool with two benchmark-aware
 completion pools, then reranks the fixed merged pool. Its final accuracy is
-close to the paper SPP row, but the oracle/verifier split is different.
+close to the paper SPP row, but the oracle/verifier split is different. A
+targeted exact-value search did not recover an independent full-size artifact
+for the paper SPP O/V/F row, so this should remain fallback evidence rather
+than exact SPP provenance.
 
 Recovered provenance for that fallback:
 
