@@ -26,7 +26,8 @@ paper. GSM8K and GPQA reconstructed reruns are close on final accuracy, but the
 CompMath SPP-family reruns are lower than the paper. A fresh CompMath
 CACC+SPP completion reconstruction was lower by about 5.9 percentage points,
 although a recovered full-size salvage/repair fallback is lower by about 1.8
-percentage points.
+percentage points. A recovered full-size MMLU-Pro heterogeneous-pool fallback
+is within about 0.5 percentage points of the paper SPP final accuracy.
 
 ## Completed Reconstructed Reruns
 
@@ -37,6 +38,7 @@ percentage points.
 | CompMath | SPP | 0.2776 | 0.2454 | -0.0322 | main current release-risk row |
 | CompMath | CACC+SPP | 0.3101 | 0.2513 | -0.0588 | largest current release-risk row |
 | CompMath | salvage/repair fallback | 0.3101 | 0.2926 | -0.0175 | recovered full-size fallback, not exact table provenance |
+| MMLU-Pro | heterogeneous-pool fallback | 0.2663 | 0.2708 | +0.0045 | recovered full-size fallback, different O/V split |
 | GPQA | SPP | 0.1983 | 0.1970 | -0.0013 | close final, different O/V split |
 
 These reconstructed rows are fresh generation/reranking evidence, not original
@@ -55,6 +57,19 @@ Recovered provenance for that fallback:
 - Reranker predictions used for repair targeting: `ser_generate_then_rerank_qwen3_17b_competition_math_numeric_test_completion_hybridp6_v1_verifier_predictions.jsonl`
 - Repair protocol: `samples_per_target=1`, `max_repair_targets=2`, `max_candidates=8`, `protect_prefix_candidates=1`, strict hygiene, no replacement of complete attempts, numeric repairs only.
 - Recorded full generation cost: about 23,954 seconds for 3,199 examples.
+
+The MMLU-Pro heterogeneous-pool fallback is based on a recovered full-size pool
+merge over 12,032 examples. It merges the base pool with two benchmark-aware
+completion pools, then reranks the fixed merged pool. Its final accuracy is
+close to the paper SPP row, but the oracle/verifier split is different.
+
+Recovered provenance for that fallback:
+
+- Base pool: `mmlu_pro_test_generated_candidates_qwen3_17b_base_filtered_t07_s16k8_hybridp6_v1.jsonl`
+- Anchor completion pool: `mmlu_pro_test_generated_candidates_qwen3_17b_base_filtered_t07_s16k8_completion_hybridp6_benchmarkaware_qwen8bproposer_v2.jsonl`
+- Auxiliary completion pool: `mmlu_pro_test_generated_candidates_qwen3_17b_base_filtered_t07_s16k8_completion_hybridp6_benchmarkaware_v3.jsonl`
+- Merge protocol: `max_candidates=8`, `protect_prefix_candidates=1`, `max_aux_insertions=3`, `dedupe_mode=numeric_or_text`.
+- Rerank protocol: fixed-pool first/base/verifier evaluation with Qwen3-1.7B and the verifier adapter.
 
 ## Pending Rows
 
@@ -150,6 +165,35 @@ python scripts/run_repair_rerank_eval.py \
   --verifier-base-model /path/to/verifier-base-model \
   --analysis-report runs/compmath_salvage_repair_fallback/report.md \
   --analysis-summary-json runs/compmath_salvage_repair_fallback/summary.json
+```
+
+MMLU-Pro heterogeneous-pool fallback:
+
+```bash
+python scripts/merge_candidate_pools.py \
+  --base-candidates /path/to/mmlu_base_candidates.jsonl \
+  --anchor-candidates /path/to/mmlu_qwen8bproposer_v2_candidates.jsonl \
+  --aux-candidates /path/to/mmlu_benchmarkaware_v3_candidates.jsonl \
+  --output runs/mmlu_heterogeneous_fallback/candidates.jsonl \
+  --metrics-output runs/mmlu_heterogeneous_fallback/pool_metrics.json \
+  --max-candidates 8 \
+  --protect-prefix-candidates 1 \
+  --max-aux-insertions 3 \
+  --dedupe-mode numeric_or_text
+
+python scripts/run_fixed_pool_rerank_eval.py \
+  --run-label mmlu_heterogeneous_fallback \
+  --candidates runs/mmlu_heterogeneous_fallback/candidates.jsonl \
+  --first-predictions-output runs/mmlu_heterogeneous_fallback/first_predictions.jsonl \
+  --base-predictions-output runs/mmlu_heterogeneous_fallback/base_rerank_predictions.jsonl \
+  --base-metrics-output runs/mmlu_heterogeneous_fallback/base_rerank_metrics.json \
+  --base-reranker-model-path /path/to/reranker-model \
+  --verifier-predictions-output runs/mmlu_heterogeneous_fallback/verifier_predictions.jsonl \
+  --verifier-metrics-output runs/mmlu_heterogeneous_fallback/verifier_metrics.json \
+  --verifier-adapter-path /path/to/verifier-adapter \
+  --verifier-base-model /path/to/verifier-base-model \
+  --analysis-report runs/mmlu_heterogeneous_fallback/report.md \
+  --analysis-summary-json runs/mmlu_heterogeneous_fallback/summary.json
 ```
 
 ## Interpreting Differences
