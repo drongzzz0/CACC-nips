@@ -71,6 +71,10 @@ Recovered provenance for that fallback:
 - Repair protocol: `samples_per_target=1`, `max_repair_targets=2`, `max_candidates=8`, `protect_prefix_candidates=1`, strict hygiene, no replacement of complete attempts, numeric repairs only.
 - Generation accounting: `selected_repair_targets=6396`, `retained_repair_candidates=3374`, `examples_modified=2315`, script MD5 `5fc941c6f603b3818fb40dbf35caeacf`.
 - Recorded full generation cost: about 23,954 seconds for 3,199 examples.
+- The E01 artifact bundle expected values in `configs/artifact_bundle.example.json`
+  were cross-checked against the current internal `ser` artifacts on
+  2026-06-07: candidates and prediction logs have 3,199 rows, repair prompts
+  have 6,396 rows, and the recorded oracle/verifier counts match the summary.
 
 The MMLU-Pro heterogeneous-pool fallback is based on a recovered full-size pool
 merge over 12,032 examples. It merges the base pool with two benchmark-aware
@@ -98,7 +102,7 @@ Recovered provenance for that fallback:
 
 | Dataset | Variant | Paper final | Internal status |
 | --- | --- | ---: | --- |
-| MMLU-Pro | SPP | 0.2663 | long Qwen3-8B generation still running; last checked 2026-06-07 22:49 CST, parent PID `795448` and generator child PID `795452` alive on GPU0, no candidate pool or final summary written yet. Backup chunked-b4 run `repro20260607_mmlu_pro_spp_direct_qwen8b_full_reconstructed_chunked_b4_v1` is alive on GPU1 with PID `986646` and reached `processed 130 examples`. Backup chunked-b8 run `repro20260607_mmlu_pro_spp_direct_qwen8b_full_reconstructed_chunked_b8_v1` is alive on GPU2 with PID `995653` and reached `processed 210 examples`; the dataset has 12032 examples, so this is still a long-running generation job rather than a failed result. |
+| MMLU-Pro | SPP | 0.2663 | long Qwen3-8B generation still running; last checked 2026-06-07 22:56 CST, parent PID `795448` and generator child PID `795452` alive on GPU0, no candidate pool or final summary written yet. Backup chunked-b4 run `repro20260607_mmlu_pro_spp_direct_qwen8b_full_reconstructed_chunked_b4_v1` is alive on GPU1 with PID `986646` and reached `processed 150 examples`. Backup chunked-b8 run `repro20260607_mmlu_pro_spp_direct_qwen8b_full_reconstructed_chunked_b8_v1` is alive on GPU2 with PID `995653` and reached `processed 270 examples`; the dataset has 12032 examples, so this is still a long-running generation job rather than a failed result. |
 
 Update this file after those runs finish.
 
