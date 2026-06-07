@@ -65,7 +65,11 @@ Recovered provenance for that fallback:
 
 - Base pool: `competition_math_numeric_test_generated_candidates_qwen3_17b_base_filtered_t07_s16k8_completion_hybridp6_v1.jsonl`
 - Reranker predictions used for repair targeting: `ser_generate_then_rerank_qwen3_17b_competition_math_numeric_test_completion_hybridp6_v1_verifier_predictions.jsonl`
+- Repaired candidate pool: `candidate_salvage_E01_compmath_numeric_salvage_amc_sch_v1.jsonl`
+- Repair prompt preview: `prompts_E01_compmath_numeric_salvage_amc_sch_v1.jsonl`
+- Prediction audit logs: `candidate_salvage_E01_compmath_numeric_salvage_amc_sch_first_predictions.jsonl`, `..._base_rerank_predictions.jsonl`, and `..._verifier_predictions.jsonl`
 - Repair protocol: `samples_per_target=1`, `max_repair_targets=2`, `max_candidates=8`, `protect_prefix_candidates=1`, strict hygiene, no replacement of complete attempts, numeric repairs only.
+- Generation accounting: `selected_repair_targets=6396`, `retained_repair_candidates=3374`, `examples_modified=2315`, script MD5 `5fc941c6f603b3818fb40dbf35caeacf`.
 - Recorded full generation cost: about 23,954 seconds for 3,199 examples.
 
 The MMLU-Pro heterogeneous-pool fallback is based on a recovered full-size pool

@@ -57,6 +57,54 @@
       "required_for": ["compmath/cacc_spp"]
     },
     {
+      "id": "fallback.compmath_e01.generation",
+      "path": "results/compmath_e01_fallback/generation.json",
+      "kind": "json",
+      "required_for": ["compmath/cacc_spp"]
+    },
+    {
+      "id": "fallback.compmath_e01.candidates",
+      "path": "results/compmath_e01_fallback/candidates.jsonl",
+      "kind": "jsonl",
+      "required_for": ["compmath/cacc_spp"]
+    },
+    {
+      "id": "fallback.compmath_e01.prompts",
+      "path": "results/compmath_e01_fallback/prompts.jsonl",
+      "kind": "jsonl",
+      "required_for": ["compmath/cacc_spp"]
+    },
+    {
+      "id": "fallback.compmath_e01.first_predictions",
+      "path": "results/compmath_e01_fallback/first_predictions.jsonl",
+      "kind": "jsonl",
+      "required_for": ["compmath/cacc_spp"]
+    },
+    {
+      "id": "fallback.compmath_e01.base_predictions",
+      "path": "results/compmath_e01_fallback/base_rerank_predictions.jsonl",
+      "kind": "jsonl",
+      "required_for": ["compmath/cacc_spp"]
+    },
+    {
+      "id": "fallback.compmath_e01.verifier_predictions",
+      "path": "results/compmath_e01_fallback/verifier_predictions.jsonl",
+      "kind": "jsonl",
+      "required_for": ["compmath/cacc_spp"]
+    },
+    {
+      "id": "fallback.compmath_e01.base_metrics",
+      "path": "results/compmath_e01_fallback/base_rerank_metrics.json",
+      "kind": "json",
+      "required_for": ["compmath/cacc_spp"]
+    },
+    {
+      "id": "fallback.compmath_e01.verifier_metrics",
+      "path": "results/compmath_e01_fallback/verifier_metrics.json",
+      "kind": "json",
+      "required_for": ["compmath/cacc_spp"]
+    },
+    {
       "id": "summary.mmlu_spp",
       "path": "results/mmlu_pro_spp_summary.json",
       "kind": "metric_summary",

@@ -46,6 +46,25 @@ bucket, but report all three metrics.
 | CompMath CACC+SPP | Main current risk row. Fresh reconstruction was lower than paper; recovered repair fallback is closer but is not exact paper provenance. | Completion pool, verifier predictions for repair targeting, repair generator settings, reranker/verifier artifacts. |
 | MMLU-Pro SPP | Direct rerun is pending in the internal audit; heterogeneous-pool fallback is close on final accuracy but differs in O/V split. | Full MMLU-Pro JSONL, base pool, optional benchmark-aware proposer pools, reranker/verifier artifacts. |
 
+## CompMath Fallback Artifact Set
+
+For the closest recovered CompMath CACC+SPP fallback, keep the full E01 bundle
+together rather than only the summary JSON:
+
+- `generation.json`: repair settings and generation accounting.
+- `candidates.jsonl`: repaired candidate pool.
+- `prompts.jsonl`: repair prompts.
+- `first_predictions.jsonl`, `base_rerank_predictions.jsonl`, and
+  `verifier_predictions.jsonl`: selected-answer audit logs.
+- `base_rerank_metrics.json`, `verifier_metrics.json`, and `summary.json`:
+  recomputation checkpoints and final O/V/F summary.
+
+The internal E01 run used `samples_per_target=1`, `max_repair_targets=2`,
+`max_candidates=8`, `protect_prefix_candidates=1`, strict hygiene,
+numeric-only repairs, and no replacement of complete attempts. Its final
+accuracy is closer to the paper than the fresh CACC+SPP rerun mainly because
+its candidate pool has more oracle hits.
+
 ## Comparison Workflow
 
 List paper targets and current release references:
