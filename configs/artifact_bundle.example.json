@@ -60,49 +60,91 @@
       "id": "fallback.compmath_e01.generation",
       "path": "results/compmath_e01_fallback/generation.json",
       "kind": "json",
-      "required_for": ["compmath/cacc_spp"]
+      "required_for": ["compmath/cacc_spp"],
+      "expected_values": {
+        "total_examples": 3199,
+        "samples_per_target": 1,
+        "max_repair_targets": 2,
+        "max_candidates": 8,
+        "protect_prefix_candidates": 1,
+        "examples_modified": 2315,
+        "retained_repair_candidates": 3374,
+        "strict_hygiene": true,
+        "allow_replace_complete_attempt": false,
+        "allow_non_numeric_repairs": false,
+        "script_md5": "5fc941c6f603b3818fb40dbf35caeacf"
+      }
     },
     {
       "id": "fallback.compmath_e01.candidates",
       "path": "results/compmath_e01_fallback/candidates.jsonl",
       "kind": "jsonl",
-      "required_for": ["compmath/cacc_spp"]
+      "required_for": ["compmath/cacc_spp"],
+      "expected_lines": 3199
     },
     {
       "id": "fallback.compmath_e01.prompts",
       "path": "results/compmath_e01_fallback/prompts.jsonl",
       "kind": "jsonl",
-      "required_for": ["compmath/cacc_spp"]
+      "required_for": ["compmath/cacc_spp"],
+      "expected_lines": 6396
     },
     {
       "id": "fallback.compmath_e01.first_predictions",
       "path": "results/compmath_e01_fallback/first_predictions.jsonl",
       "kind": "jsonl",
-      "required_for": ["compmath/cacc_spp"]
+      "required_for": ["compmath/cacc_spp"],
+      "expected_lines": 3199
     },
     {
       "id": "fallback.compmath_e01.base_predictions",
       "path": "results/compmath_e01_fallback/base_rerank_predictions.jsonl",
       "kind": "jsonl",
-      "required_for": ["compmath/cacc_spp"]
+      "required_for": ["compmath/cacc_spp"],
+      "expected_lines": 3199
     },
     {
       "id": "fallback.compmath_e01.verifier_predictions",
       "path": "results/compmath_e01_fallback/verifier_predictions.jsonl",
       "kind": "jsonl",
-      "required_for": ["compmath/cacc_spp"]
+      "required_for": ["compmath/cacc_spp"],
+      "expected_lines": 3199
     },
     {
       "id": "fallback.compmath_e01.base_metrics",
       "path": "results/compmath_e01_fallback/base_rerank_metrics.json",
       "kind": "json",
-      "required_for": ["compmath/cacc_spp"]
+      "required_for": ["compmath/cacc_spp"],
+      "expected_values": {
+        "num_examples": 3199,
+        "correct": 873,
+        "accuracy": 0.2728977805564239
+      }
     },
     {
       "id": "fallback.compmath_e01.verifier_metrics",
       "path": "results/compmath_e01_fallback/verifier_metrics.json",
       "kind": "json",
-      "required_for": ["compmath/cacc_spp"]
+      "required_for": ["compmath/cacc_spp"],
+      "expected_values": {
+        "num_examples": 3199,
+        "correct": 936,
+        "accuracy": 0.2925914348233823
+      }
+    },
+    {
+      "id": "fallback.compmath_e01.summary",
+      "path": "results/compmath_e01_fallback/summary.json",
+      "kind": "metric_summary",
+      "required_for": ["compmath/cacc_spp"],
+      "expected_values": {
+        "total_examples": 3199,
+        "oracle_correct": 1702,
+        "oracle_coverage": 0.5320412628946546,
+        "verifier_correct": 936,
+        "verifier_accuracy": 0.2925914348233823,
+        "selection_efficiency_given_oracle.verifier": 0.5499412455934195
+      }
     },
     {
       "id": "summary.mmlu_spp",

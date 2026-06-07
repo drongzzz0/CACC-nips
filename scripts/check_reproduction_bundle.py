@@ -72,15 +72,20 @@ def selected_for_rows(artifact: dict[str, Any], rows: set[str]) -> bool:
     return bool(required_for & rows)
 
 
-def check_json(path: Path) -> tuple[str, str]:
+def check_json(path: Path) -> tuple[str, str, dict[str, Any]]:
     try:
-        load_json(path)
+        data = load_json(path)
     except Exception as exc:  # noqa: BLE001
-        return "INVALID", f"json parse failed: {exc}"
-    return "OK", "json parsed"
+        return "INVALID", f"json parse failed: {exc}", {}
+    return "OK", "json parsed", data
 
 
-def check_jsonl(path: Path, sample_lines: int) -> tuple[str, str]:
+def count_jsonl_lines(path: Path) -> int:
+    with path.open("rb") as handle:
+        return sum(1 for line in handle if line.strip())
+
+
+def check_jsonl(path: Path, sample_lines: int) -> tuple[str, str, dict[str, Any]]:
     parsed = 0
     try:
         with path.open("r", encoding="utf-8") as handle:
@@ -92,15 +97,15 @@ def check_jsonl(path: Path, sample_lines: int) -> tuple[str, str]:
                 json.loads(line)
                 parsed += 1
     except Exception as exc:  # noqa: BLE001
-        return "INVALID", f"jsonl parse failed near sampled line {parsed + 1}: {exc}"
-    return "OK", f"sampled {parsed} jsonl lines"
+        return "INVALID", f"jsonl parse failed near sampled line {parsed + 1}: {exc}", {}
+    return "OK", f"sampled {parsed} jsonl lines", {}
 
 
-def check_metric_summary(path: Path) -> tuple[str, str]:
+def check_metric_summary(path: Path) -> tuple[str, str, dict[str, Any]]:
     try:
         data = load_json(path)
     except Exception as exc:  # noqa: BLE001
-        return "INVALID", f"metric summary json parse failed: {exc}"
+        return "INVALID", f"metric summary json parse failed: {exc}", {}
     required = [
         ("oracle_coverage",),
         ("selection_efficiency_given_oracle", "verifier"),
@@ -118,8 +123,50 @@ def check_metric_summary(path: Path) -> tuple[str, str]:
             if not isinstance(cur, (int, float)):
                 missing.append(".".join(key_path))
     if missing:
-        return "INVALID", "missing numeric fields: " + ", ".join(missing)
-    return "OK", "metric fields present"
+        return "INVALID", "missing numeric fields: " + ", ".join(missing), data
+    return "OK", "metric fields present", data
+
+
+def get_value(data: dict[str, Any], dotted_path: str) -> Any:
+    cur: Any = data
+    for part in dotted_path.split("."):
+        if not isinstance(cur, dict) or part not in cur:
+            raise KeyError(dotted_path)
+        cur = cur[part]
+    return cur
+
+
+def check_expected_values(
+    data: dict[str, Any], expected: dict[str, Any], tolerance: float
+) -> tuple[bool, list[str]]:
+    details: list[str] = []
+    ok = True
+    for key_path, expected_value in expected.items():
+        try:
+            observed = get_value(data, key_path)
+        except KeyError:
+            ok = False
+            details.append(f"{key_path}=missing expected {expected_value}")
+            continue
+        if isinstance(expected_value, bool) or isinstance(observed, bool):
+            if observed is not expected_value:
+                ok = False
+                details.append(f"{key_path}={observed!r} expected {expected_value!r}")
+            else:
+                details.append(f"{key_path}={observed!r}")
+        elif isinstance(expected_value, (int, float)) and isinstance(observed, (int, float)):
+            delta = abs(float(observed) - float(expected_value))
+            if delta > tolerance:
+                ok = False
+                details.append(f"{key_path}={observed} expected {expected_value}")
+            else:
+                details.append(f"{key_path}={observed}")
+        elif observed != expected_value:
+            ok = False
+            details.append(f"{key_path}={observed!r} expected {expected_value!r}")
+        else:
+            details.append(f"{key_path}={observed!r}")
+    return ok, details
 
 
 def check_model_dir(path: Path) -> tuple[str, str]:
@@ -160,14 +207,34 @@ def check_artifact(artifact: dict[str, Any], root: Path, sample_lines: int) -> d
         result.update({"status": "INVALID", "detail": "expected file"})
         return result
 
+    data: dict[str, Any] = {}
     if kind == "json":
-        status, detail = check_json(path)
+        status, detail, data = check_json(path)
     elif kind == "jsonl":
-        status, detail = check_jsonl(path, sample_lines)
+        status, detail, data = check_jsonl(path, sample_lines)
     elif kind == "metric_summary":
-        status, detail = check_metric_summary(path)
+        status, detail, data = check_metric_summary(path)
     else:
         status, detail = "OK", "file exists"
+    expected_lines = artifact.get("expected_lines")
+    if status == "OK" and expected_lines is not None:
+        if kind != "jsonl":
+            status = "INVALID"
+            detail += "; expected_lines is only valid for jsonl artifacts"
+        else:
+            actual_lines = count_jsonl_lines(path)
+            if actual_lines != int(expected_lines):
+                status = "INVALID"
+                detail += f"; line_count={actual_lines} expected {expected_lines}"
+            else:
+                detail += f"; line_count={actual_lines}"
+    expected_values = artifact.get("expected_values")
+    if status == "OK" and expected_values:
+        tolerance = float(artifact.get("expected_tolerance", 1e-9))
+        values_ok, value_details = check_expected_values(data, expected_values, tolerance)
+        detail += "; " + "; ".join(value_details)
+        if not values_ok:
+            status = "INVALID"
     result.update({"status": status, "detail": detail, "size_bytes": path.stat().st_size})
     return result
 

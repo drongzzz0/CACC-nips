@@ -76,6 +76,10 @@ python scripts/check_reproduction_bundle.py \
   --row compmath/cacc_spp
 ```
 
+The bundle checker also honors optional expected line counts and metric values
+from the manifest, which are used for the documented CompMath E01 fallback
+artifact set.
+
 To export the current release-facing Table 1 reproduction report:
 
 ```bash

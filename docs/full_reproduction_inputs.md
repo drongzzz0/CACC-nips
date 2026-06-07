@@ -65,6 +65,11 @@ numeric-only repairs, and no replacement of complete attempts. Its final
 accuracy is closer to the paper than the fresh CACC+SPP rerun mainly because
 its candidate pool has more oracle hits.
 
+The bundle checker understands optional `expected_lines` for JSONL artifacts
+and `expected_values` for JSON/metric-summary artifacts. The example manifest
+uses those fields for the E01 bundle so a local artifact set can be checked for
+the expected 3,199 examples, 6,396 repair prompts, and recorded O/V/F counts.
+
 ## Comparison Workflow
 
 List paper targets and current release references:
@@ -85,7 +90,8 @@ python scripts/check_reproduction_bundle.py \
 Copy `configs/artifact_bundle.example.json` and replace the paths with your
 local dataset, model, adapter, candidate, prediction, and summary locations.
 The checker validates path existence and basic JSON/JSONL/metric-summary
-structure; it does not validate that a model checkpoint is identical to the
+structure. When optional expected counts or values are present, it also checks
+those. It does not validate that a model checkpoint is identical to the
 internal paper run.
 
 Compare one or more summary JSON files:
