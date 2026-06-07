@@ -131,6 +131,36 @@ python scripts/generate_candidate_sets.py \
   --metrics-output runs/candidates/base_metrics.json
 ```
 
+For long full-benchmark generation, prefer the checkpointed entrypoint so a
+machine interruption does not discard all generated candidates:
+
+```bash
+python scripts/run_generate_then_rerank_eval_checkpointed.py \
+  --run-label my_full_run \
+  --dataset /path/to/benchmark.jsonl \
+  --candidate-output runs/my_full_run/candidates.jsonl \
+  --candidate-metrics-output runs/my_full_run/generation.json \
+  --candidate-progress-output runs/my_full_run/generation.progress.json \
+  --generator-model-path /path/to/generator-model \
+  --samples-per-example 16 \
+  --generation-batch-size 8 \
+  --max-candidates 8 \
+  --base-reranker-model-path /path/to/reranker-model \
+  --verifier-adapter-path /path/to/verifier-adapter \
+  --verifier-base-model /path/to/verifier-base-model \
+  --first-predictions-output runs/my_full_run/first_predictions.jsonl \
+  --base-predictions-output runs/my_full_run/base_predictions.jsonl \
+  --base-metrics-output runs/my_full_run/base_metrics.json \
+  --verifier-predictions-output runs/my_full_run/verifier_predictions.jsonl \
+  --verifier-metrics-output runs/my_full_run/verifier_metrics.json \
+  --analysis-report runs/my_full_run/report.md \
+  --analysis-summary-json runs/my_full_run/summary.json
+```
+
+Pass `--resume` to continue from an existing partial candidate JSONL. The
+resumed tail may not be bitwise-equivalent to one uninterrupted stochastic run,
+but it preserves completed candidate rows and is safer for day-scale reruns.
+
 Most experiment scripts accept explicit input/output paths. Keep generated
 candidate pools, predictions, metrics, and reports under `runs/` or another
 ignored output directory.

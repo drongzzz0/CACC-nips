@@ -42,6 +42,9 @@ Remote inspection was read-only. The source project is not a git repository.
   target manifest.
 - `scripts/check_release_readiness.py`: standard-library helper for checking
   whether the manifest still has large-gap blockers, pending rows, or caveats.
+- `scripts/generate_candidate_sets_chunked_checkpointed.py` and
+  `scripts/run_generate_then_rerank_eval_checkpointed.py`: resumable
+  full-benchmark generation/reranking entrypoints for long stochastic reruns.
 
 ## Excluded
 
