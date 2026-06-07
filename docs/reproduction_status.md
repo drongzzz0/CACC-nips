@@ -17,8 +17,9 @@ The main paper table has 16 dataset/variant rows. At the current checkpoint:
 - 1 row has provenance but lacks the current prediction log needed for full
   recomputation.
 - 5 SPP-family rows have completed reconstructed reruns. They do not exactly
-  reproduce the original oracle/verifier decomposition, but their final
-  accuracies are close enough to characterize open-source rerun behavior.
+  reproduce the original oracle/verifier decomposition. GSM8K and GPQA are
+  close on final accuracy; CompMath is lower and should be treated as the main
+  open-source reproduction risk.
 - 1 SPP-family row is still running in the internal audit.
 
 The practical release question is whether fresh reruns collapse relative to the
@@ -78,7 +79,7 @@ Recovered provenance for that fallback:
 
 | Dataset | Variant | Paper final | Internal status |
 | --- | --- | ---: | --- |
-| MMLU-Pro | SPP | 0.2663 | long Qwen3-8B generation still running; last checked 2026-06-07 21:28 CST, parent PID `795448` and generator child PID `795452` alive on GPU0, no candidate pool or final summary written yet |
+| MMLU-Pro | SPP | 0.2663 | long Qwen3-8B generation still running; last checked 2026-06-07 21:38 CST, parent PID `795448` and generator child PID `795452` alive on GPU0, no candidate pool or final summary written yet |
 
 Update this file after those runs finish.
 
@@ -102,6 +103,10 @@ python scripts/compare_reproduction_metrics.py \
 The target manifest is `configs/reproduction_targets.json`. It records paper
 O/V/F values, current release status, and the closest release-facing rerun or
 fallback reference where exact paper-row provenance is not currently recovered.
+By default, the comparison tool labels an absolute final-accuracy delta of
+`<=0.02` as `close`, `<=0.05` as `watch`, and anything larger as `large_gap`.
+Use `--close-final-delta` and `--watch-final-delta` if your release criterion
+needs different thresholds.
 
 Direct SPP-style generation plus reranking:
 
@@ -229,3 +234,7 @@ change the candidate pool before reranking.
 For public reproducibility, do not claim exact table reproduction unless the
 same candidate artifacts and metric JSONs are available. For code-level reruns,
 compare final accuracy and document the candidate-generation protocol used.
+The helper script uses final accuracy only for the `close` / `watch` /
+`large_gap` bucket because oracle and V|O can move in opposite directions under
+new stochastic candidate pools. Large final gaps should be investigated before
+using a rerun as release-facing evidence.

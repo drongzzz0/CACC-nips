@@ -60,7 +60,8 @@ python scripts/compare_reproduction_metrics.py \
 
 Use row ids such as `gsm8k/cacc_spp`, `compmath/cacc_spp`,
 `mmlu_pro/spp`, and `gpqa/spp`. The manifest is
-`configs/reproduction_targets.json`.
+`configs/reproduction_targets.json`. By default, final-accuracy deltas of
+`<=0.02` are `close`, `<=0.05` are `watch`, and larger gaps are `large_gap`.
 
 ## Main CACC Entry Points
 
