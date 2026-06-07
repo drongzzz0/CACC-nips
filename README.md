@@ -88,6 +88,14 @@ python scripts/export_reproduction_report.py \
   --csv-output docs/table1_reproduction_report.csv
 ```
 
+To check whether the current manifest has large release blockers:
+
+```bash
+python scripts/check_release_readiness.py
+```
+
+Use `--strict` when you want pending rows and caveats to fail the gate too.
+
 ## Main CACC Entry Points
 
 Tag an existing candidate pool with heuristic motif and quality labels:

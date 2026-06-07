@@ -28,6 +28,8 @@ Remote inspection was read-only. The source project is not a git repository.
   interpreting full rerun differences.
 - `docs/table1_reproduction_report.{md,csv}`: generated compact Table 1
   reproduction-status reports from `configs/reproduction_targets.json`.
+- `docs/release_readiness.md`: generated release-readiness summary from the
+  reproduction target manifest.
 - `docs/full_reproduction_inputs.md`: checklist of non-released inputs needed
   for exact or approximate full reproduction.
 - `scripts/compare_reproduction_metrics.py`: standard-library helper for
@@ -38,6 +40,8 @@ Remote inspection was read-only. The source project is not a git repository.
 - `scripts/export_reproduction_report.py`: standard-library helper for
   exporting a compact markdown/CSV Table 1 reproduction-status report from the
   target manifest.
+- `scripts/check_release_readiness.py`: standard-library helper for checking
+  whether the manifest still has large-gap blockers, pending rows, or caveats.
 
 ## Excluded
 
@@ -61,5 +65,6 @@ Remote inspection was read-only. The source project is not a git repository.
 - Run `python scripts/compare_reproduction_metrics.py`.
 - Run `python scripts/check_reproduction_bundle.py --row compmath/cacc_spp`.
 - Run `python scripts/export_reproduction_report.py --markdown-output docs/table1_reproduction_report.md --csv-output docs/table1_reproduction_report.csv`.
+- Run `python scripts/check_release_readiness.py --markdown-output docs/release_readiness.md`.
 - Run a large-file check before commit.
 - Run a sensitive-string scan before commit.

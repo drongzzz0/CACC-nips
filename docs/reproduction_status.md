@@ -102,7 +102,7 @@ Recovered provenance for that fallback:
 
 | Dataset | Variant | Paper final | Internal status |
 | --- | --- | ---: | --- |
-| MMLU-Pro | SPP | 0.2663 | long Qwen3-8B generation still running; last checked 2026-06-07 22:56 CST, parent PID `795448` and generator child PID `795452` alive on GPU0, no candidate pool or final summary written yet. Backup chunked-b4 run `repro20260607_mmlu_pro_spp_direct_qwen8b_full_reconstructed_chunked_b4_v1` is alive on GPU1 with PID `986646` and reached `processed 150 examples`. Backup chunked-b8 run `repro20260607_mmlu_pro_spp_direct_qwen8b_full_reconstructed_chunked_b8_v1` is alive on GPU2 with PID `995653` and reached `processed 270 examples`; the dataset has 12032 examples, so this is still a long-running generation job rather than a failed result. |
+| MMLU-Pro | SPP | 0.2663 | long Qwen3-8B generation still running; last checked 2026-06-07 23:02 CST, parent PID `795448` and generator child PID `795452` alive on GPU0, no candidate pool or final summary written yet. Backup chunked-b4 run `repro20260607_mmlu_pro_spp_direct_qwen8b_full_reconstructed_chunked_b4_v1` is alive on GPU1 with PID `986646` and reached `processed 170 examples`. Backup chunked-b8 run `repro20260607_mmlu_pro_spp_direct_qwen8b_full_reconstructed_chunked_b8_v1` is alive on GPU2 with PID `995653` and reached `processed 300 examples`; the dataset has 12032 examples, so this is still a long-running generation job rather than a failed result. |
 
 Update this file after those runs finish.
 
