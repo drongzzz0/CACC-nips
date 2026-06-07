@@ -12,14 +12,22 @@ Remote inspection was read-only. The source project is not a git repository.
 - `src/`: core CACC and generate-then-rerank Python modules.
 - `scripts/*.py`: portable Python entrypoints and analysis utilities.
 - `configs/train_subgoals.yaml`: small training config template.
+- `configs/reproduction_targets.json`: paper Table 1 targets and current
+  release-facing rerun/fallback references.
 - `requirements.txt` and `requirements-peft.txt`: Python dependency hints.
 - `examples/synthetic_reasoning_sample.jsonl`: tiny synthetic pipeline
   smoke-test data.
 - `examples/synthetic_base_candidates.jsonl`: tiny synthetic candidate-pool
   data for motif tagging and CACC dry-run checks.
+- `examples/example_summary_metrics.json`: minimal metric-summary schema for
+  reproduction comparison.
 - `README.md` and `.gitignore`: GitHub-facing repository scaffolding.
 - `docs/reproduction_status.md`: audit snapshot and release-facing notes for
   interpreting full rerun differences.
+- `docs/full_reproduction_inputs.md`: checklist of non-released inputs needed
+  for exact or approximate full reproduction.
+- `scripts/compare_reproduction_metrics.py`: standard-library helper for
+  comparing rerun summary JSON files with the target manifest.
 
 ## Excluded
 
@@ -40,5 +48,6 @@ Remote inspection was read-only. The source project is not a git repository.
 - Decide whether the paper TeX package should live in the same repository or a
   separate manuscript repository.
 - Run `python scripts/run_minimum_pipeline.py --allow-stub`.
+- Run `python scripts/compare_reproduction_metrics.py`.
 - Run a large-file check before commit.
 - Run a sensitive-string scan before commit.

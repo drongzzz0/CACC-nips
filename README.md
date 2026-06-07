@@ -21,6 +21,8 @@ artifacts, remote launch scripts, and large archives.
 - `docs/release_inventory.md`: what was included, what was excluded, and why.
 - `docs/reproduction_status.md`: current internal full-run reproduction status,
   expected rerun variance, and release-facing caveats.
+- `docs/full_reproduction_inputs.md`: checklist of benchmark/model/candidate
+  artifacts needed for full Table 1 reproduction.
 - `runs/`: local outputs from smoke tests or reproduction runs; ignored by git.
 
 ## Setup
@@ -113,6 +115,9 @@ See `docs/reproduction_status.md` before comparing regenerated full-run numbers
 against the paper table. Candidate generation is stochastic and paper-level
 reproduction depends on the exact candidate pools, model checkpoints, verifier
 adapter, prompts, parser, and selection settings.
+
+See `docs/full_reproduction_inputs.md` for the concrete artifact classes needed
+for exact paper-row reproduction versus approximate code-level reruns.
 
 ## License
 
