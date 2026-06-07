@@ -54,6 +54,21 @@ List paper targets and current release references:
 python scripts/compare_reproduction_metrics.py
 ```
 
+Check an artifact bundle before starting a long run:
+
+```bash
+python scripts/check_reproduction_bundle.py \
+  --bundle configs/artifact_bundle.example.json \
+  --root /path/to/local/artifact/root \
+  --row compmath/cacc_spp
+```
+
+Copy `configs/artifact_bundle.example.json` and replace the paths with your
+local dataset, model, adapter, candidate, prediction, and summary locations.
+The checker validates path existence and basic JSON/JSONL/metric-summary
+structure; it does not validate that a model checkpoint is identical to the
+internal paper run.
+
 Compare one or more summary JSON files:
 
 ```bash

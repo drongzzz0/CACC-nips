@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "description": "Example local artifact bundle manifest for CACC full reproduction. Replace paths with your local files.",
+  "artifacts": [
+    {
+      "id": "dataset.gsm8k",
+      "path": "datasets/gsm8k_test.jsonl",
+      "kind": "jsonl",
+      "required_for": ["gsm8k/base", "gsm8k/spp", "gsm8k/cacc", "gsm8k/cacc_spp"]
+    },
+    {
+      "id": "dataset.compmath",
+      "path": "datasets/competition_math_numeric_test.jsonl",
+      "kind": "jsonl",
+      "required_for": ["compmath/base", "compmath/spp", "compmath/cacc", "compmath/cacc_spp"]
+    },
+    {
+      "id": "dataset.mmlu_pro",
+      "path": "datasets/mmlu_pro_test.jsonl",
+      "kind": "jsonl",
+      "required_for": ["mmlu_pro/base", "mmlu_pro/spp", "mmlu_pro/cacc", "mmlu_pro/cacc_spp"]
+    },
+    {
+      "id": "dataset.gpqa",
+      "path": "datasets/gpqa_diamond.jsonl",
+      "kind": "jsonl",
+      "required_for": ["gpqa/base", "gpqa/spp", "gpqa/cacc", "gpqa/cacc_spp"]
+    },
+    {
+      "id": "model.generator",
+      "path": "models/Qwen3-8B",
+      "kind": "model_dir",
+      "required_for": ["gsm8k/spp", "gsm8k/cacc_spp", "compmath/spp", "compmath/cacc_spp", "mmlu_pro/spp", "gpqa/spp"]
+    },
+    {
+      "id": "model.reranker",
+      "path": "models/Qwen3-1.7B",
+      "kind": "model_dir",
+      "required_for": ["all"]
+    },
+    {
+      "id": "adapter.verifier",
+      "path": "checkpoints/ser_a800_qwen3_17b_gsm8k512_verifier_yesno_v1",
+      "kind": "dir",
+      "required_for": ["all"]
+    },
+    {
+      "id": "summary.gsm8k_base",
+      "path": "results/gsm8k_base_summary.json",
+      "kind": "metric_summary",
+      "required_for": ["gsm8k/base"]
+    },
+    {
+      "id": "summary.compmath_cacc_spp",
+      "path": "results/compmath_cacc_spp_summary.json",
+      "kind": "metric_summary",
+      "required_for": ["compmath/cacc_spp"]
+    },
+    {
+      "id": "summary.mmlu_spp",
+      "path": "results/mmlu_pro_spp_summary.json",
+      "kind": "metric_summary",
+      "required_for": ["mmlu_pro/spp"]
+    },
+    {
+      "id": "summary.gpqa_spp",
+      "path": "results/gpqa_spp_summary.json",
+      "kind": "metric_summary",
+      "required_for": ["gpqa/spp"]
+    }
+  ]
+}

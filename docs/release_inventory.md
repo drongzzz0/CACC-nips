@@ -14,6 +14,8 @@ Remote inspection was read-only. The source project is not a git repository.
 - `configs/train_subgoals.yaml`: small training config template.
 - `configs/reproduction_targets.json`: paper Table 1 targets and current
   release-facing rerun/fallback references.
+- `configs/artifact_bundle.example.json`: editable template for checking local
+  full-reproduction artifact bundles.
 - `requirements.txt` and `requirements-peft.txt`: Python dependency hints.
 - `examples/synthetic_reasoning_sample.jsonl`: tiny synthetic pipeline
   smoke-test data.
@@ -28,6 +30,9 @@ Remote inspection was read-only. The source project is not a git repository.
   for exact or approximate full reproduction.
 - `scripts/compare_reproduction_metrics.py`: standard-library helper for
   comparing rerun summary JSON files with the target manifest.
+- `scripts/check_reproduction_bundle.py`: standard-library helper for checking
+  whether local datasets, models, adapters, and summaries exist before a full
+  reproduction attempt.
 
 ## Excluded
 
@@ -49,5 +54,6 @@ Remote inspection was read-only. The source project is not a git repository.
   separate manuscript repository.
 - Run `python scripts/run_minimum_pipeline.py --allow-stub`.
 - Run `python scripts/compare_reproduction_metrics.py`.
+- Run `python scripts/check_reproduction_bundle.py --row compmath/cacc_spp`.
 - Run a large-file check before commit.
 - Run a sensitive-string scan before commit.
