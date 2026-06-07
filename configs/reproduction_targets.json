@@ -80,7 +80,8 @@
       "release_reference": {"oracle": 0.4636, "v_given_o": 0.5421, "final": 0.2513},
       "fallback_reference": {"oracle": 0.5320, "v_given_o": 0.5499, "final": 0.2926},
       "evidence": "Experiment/analysis/results/repro20260607_compmath_cacc_spp_full_reconstructed_v1.json",
-      "fallback_evidence": "Experiment/analysis/results/candidate_salvage_2026_04_28/summary_metrics_E01_compmath_numeric_salvage_amc_sch.json"
+      "fallback_evidence": "Experiment/analysis/results/candidate_salvage_2026_04_28/summary_metrics_E01_compmath_numeric_salvage_amc_sch.json",
+      "provenance_note": "A refreshed internal scan did not find an independent full-size metric artifact matching the paper 0.3101 final. The fallback gains final accuracy mainly by increasing oracle hits relative to the fresh CACC+SPP rerun."
     },
     {
       "row_id": "mmlu_pro/base",

@@ -52,6 +52,15 @@ repair run over 3199 examples. It is closer to the paper CACC+SPP final accuracy
 than the fresh completion reconstruction, but it should be documented as a
 fallback protocol rather than the exact paper-row source.
 
+A refreshed internal scan of CompMath JSON metrics, candidate events, launch
+logs, and table-value strings did not recover an independent full-size artifact
+for the paper CACC+SPP O/V/F row (`0.5024 / 0.6173 / 0.3101`). The paper
+numbers appear in audit/table surfaces, while nearby full-size artifacts remain
+below the paper final. The main difference between the fresh CACC+SPP rerun and
+the E01 fallback is candidate-pool oracle coverage: the fallback has 1,702
+oracle hits over 3,199 examples, while the fresh rerun has 1,483; verifier
+accuracy is 936/3,199 versus 804/3,199.
+
 Recovered provenance for that fallback:
 
 - Base pool: `competition_math_numeric_test_generated_candidates_qwen3_17b_base_filtered_t07_s16k8_completion_hybridp6_v1.jsonl`
