@@ -49,6 +49,13 @@ repair run over 3199 examples. It is closer to the paper CACC+SPP final accuracy
 than the fresh completion reconstruction, but it should be documented as a
 fallback protocol rather than the exact paper-row source.
 
+Recovered provenance for that fallback:
+
+- Base pool: `competition_math_numeric_test_generated_candidates_qwen3_17b_base_filtered_t07_s16k8_completion_hybridp6_v1.jsonl`
+- Reranker predictions used for repair targeting: `ser_generate_then_rerank_qwen3_17b_competition_math_numeric_test_completion_hybridp6_v1_verifier_predictions.jsonl`
+- Repair protocol: `samples_per_target=1`, `max_repair_targets=2`, `max_candidates=8`, `protect_prefix_candidates=1`, strict hygiene, no replacement of complete attempts, numeric repairs only.
+- Recorded full generation cost: about 23,954 seconds for 3,199 examples.
+
 ## Pending Rows
 
 | Dataset | Variant | Paper final | Internal status |
@@ -110,6 +117,39 @@ python scripts/run_completion_rerank_eval.py \
   --verifier-base-model /path/to/verifier-base-model \
   --analysis-report runs/RUN_LABEL/report.md \
   --analysis-summary-json runs/RUN_LABEL/summary.json
+```
+
+CompMath salvage/repair fallback over a completion candidate pool:
+
+```bash
+python scripts/run_repair_rerank_eval.py \
+  --run-label compmath_salvage_repair_fallback \
+  --base-candidates /path/to/competition_math_completion_candidates.jsonl \
+  --reranker-predictions /path/to/completion_verifier_predictions.jsonl \
+  --repair-candidates-output runs/compmath_salvage_repair_fallback/candidates.jsonl \
+  --repair-metrics-output runs/compmath_salvage_repair_fallback/generation.json \
+  --repair-prompt-preview-output runs/compmath_salvage_repair_fallback/prompts.jsonl \
+  --generator-model-path /path/to/generator-model \
+  --samples-per-target 1 \
+  --max-repair-targets 2 \
+  --max-candidates 8 \
+  --max-new-tokens 160 \
+  --temperature 0.7 \
+  --top-p 0.95 \
+  --protect-prefix-candidates 1 \
+  --repair-dedupe-mode numeric_or_text \
+  --strict-hygiene \
+  --seed 7 \
+  --first-predictions-output runs/compmath_salvage_repair_fallback/first_predictions.jsonl \
+  --base-predictions-output runs/compmath_salvage_repair_fallback/base_rerank_predictions.jsonl \
+  --base-metrics-output runs/compmath_salvage_repair_fallback/base_rerank_metrics.json \
+  --base-reranker-model-path /path/to/reranker-model \
+  --verifier-predictions-output runs/compmath_salvage_repair_fallback/verifier_predictions.jsonl \
+  --verifier-metrics-output runs/compmath_salvage_repair_fallback/verifier_metrics.json \
+  --verifier-adapter-path /path/to/verifier-adapter \
+  --verifier-base-model /path/to/verifier-base-model \
+  --analysis-report runs/compmath_salvage_repair_fallback/report.md \
+  --analysis-summary-json runs/compmath_salvage_repair_fallback/summary.json
 ```
 
 ## Interpreting Differences
