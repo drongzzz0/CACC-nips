@@ -18,6 +18,8 @@ Remote inspection was read-only. The source project is not a git repository.
 - `examples/synthetic_base_candidates.jsonl`: tiny synthetic candidate-pool
   data for motif tagging and CACC dry-run checks.
 - `README.md` and `.gitignore`: GitHub-facing repository scaffolding.
+- `docs/reproduction_status.md`: audit snapshot and release-facing notes for
+  interpreting full rerun differences.
 
 ## Excluded
 

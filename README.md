@@ -19,6 +19,8 @@ artifacts, remote launch scripts, and large archives.
 - `configs/`: small configuration templates.
 - `examples/`: synthetic JSONL data for smoke testing the pipeline.
 - `docs/release_inventory.md`: what was included, what was excluded, and why.
+- `docs/reproduction_status.md`: current internal full-run reproduction status,
+  expected rerun variance, and release-facing caveats.
 - `runs/`: local outputs from smoke tests or reproduction runs; ignored by git.
 
 ## Setup
@@ -91,6 +93,11 @@ This release does not include benchmark datasets, raw candidate pools, model
 checkpoints, PairRM weights, verifier adapters, or generated prediction JSONL
 files. Recreate or supply those artifacts separately when running full
 experiments.
+
+See `docs/reproduction_status.md` before comparing regenerated full-run numbers
+against the paper table. Candidate generation is stochastic and paper-level
+reproduction depends on the exact candidate pools, model checkpoints, verifier
+adapter, prompts, parser, and selection settings.
 
 ## License
 
