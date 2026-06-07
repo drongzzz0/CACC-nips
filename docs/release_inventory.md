@@ -26,6 +26,8 @@ Remote inspection was read-only. The source project is not a git repository.
 - `README.md` and `.gitignore`: GitHub-facing repository scaffolding.
 - `docs/reproduction_status.md`: audit snapshot and release-facing notes for
   interpreting full rerun differences.
+- `docs/table1_reproduction_report.{md,csv}`: generated compact Table 1
+  reproduction-status reports from `configs/reproduction_targets.json`.
 - `docs/full_reproduction_inputs.md`: checklist of non-released inputs needed
   for exact or approximate full reproduction.
 - `scripts/compare_reproduction_metrics.py`: standard-library helper for
@@ -58,6 +60,6 @@ Remote inspection was read-only. The source project is not a git repository.
 - Run `python scripts/run_minimum_pipeline.py --allow-stub`.
 - Run `python scripts/compare_reproduction_metrics.py`.
 - Run `python scripts/check_reproduction_bundle.py --row compmath/cacc_spp`.
-- Run `python scripts/export_reproduction_report.py --markdown-output runs/reproduction_report.md --csv-output runs/reproduction_report.csv`.
+- Run `python scripts/export_reproduction_report.py --markdown-output docs/table1_reproduction_report.md --csv-output docs/table1_reproduction_report.csv`.
 - Run a large-file check before commit.
 - Run a sensitive-string scan before commit.

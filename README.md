@@ -21,6 +21,8 @@ artifacts, remote launch scripts, and large archives.
 - `docs/release_inventory.md`: what was included, what was excluded, and why.
 - `docs/reproduction_status.md`: current internal full-run reproduction status,
   expected rerun variance, and release-facing caveats.
+- `docs/table1_reproduction_report.md`: compact generated Table 1
+  reproduction-status report.
 - `docs/full_reproduction_inputs.md`: checklist of benchmark/model/candidate
   artifacts needed for full Table 1 reproduction.
 - `runs/`: local outputs from smoke tests or reproduction runs; ignored by git.
@@ -78,8 +80,8 @@ To export the current release-facing Table 1 reproduction report:
 
 ```bash
 python scripts/export_reproduction_report.py \
-  --markdown-output runs/reproduction_report.md \
-  --csv-output runs/reproduction_report.csv
+  --markdown-output docs/table1_reproduction_report.md \
+  --csv-output docs/table1_reproduction_report.csv
 ```
 
 ## Main CACC Entry Points

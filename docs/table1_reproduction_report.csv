@@ -1,0 +1,17 @@
+row_id,dataset,variant,paper_ovf,release_reference_ovf,release_final_delta,fallback_reference_ovf,fallback_final_delta,release_status,risk_bucket,evidence,fallback_evidence
+gsm8k/base,GSM8K,Base,0.4882 / 0.5885 / 0.2873,,,,,artifact_reproduced,artifact,analysis/results/ser_p1a_gsm8k_full_hybridp6_clean_v1.json,
+gsm8k/spp,GSM8K,SPP,0.6471 / 0.5714 / 0.3698,0.8514 / 0.4604 / 0.3920,+0.0222,,,fresh_rerun_close_final_different_decomposition,watch,Experiment/analysis/results/repro20260607_gsm8k_spp_direct_qwen8b_full_reconstructed_v1.json,
+gsm8k/cacc,GSM8K,CACC,0.6391 / 0.5682 / 0.3632,,,,,artifact_reproduced,artifact,analysis/results/ser_p1a_gsm8k_full_completion_hybridp6_clean_v1.json,
+gsm8k/cacc_spp,GSM8K,CACC+SPP,0.6962 / 0.6017 / 0.4189,0.6876 / 0.6130 / 0.4215,+0.0026,,,fresh_rerun_close_final_different_decomposition,close,Experiment/analysis/results/repro20260607_gsm8k_cacc_spp_full_reconstructed_v1.json,
+compmath/base,CompMath,Base,0.3210 / 0.4732 / 0.1519,,,,,artifact_reproduced,artifact,Experiment/analysis/results/ser_generate_then_rerank_qwen3_17b_competition_math_numeric_test_hybridp6_v1.json,
+compmath/spp,CompMath,SPP,0.4616 / 0.6014 / 0.2776,0.5505 / 0.4458 / 0.2454,-0.0322,,,fresh_rerun_lower_than_paper,watch,Experiment/analysis/results/repro20260607_compmath_spp_direct_qwen8b_full_reconstructed_v1.json,
+compmath/cacc,CompMath,CACC,0.4436 / 0.5814 / 0.2579,,,,,artifact_reproduced,artifact,Experiment/analysis/results/ser_generate_then_rerank_qwen3_17b_competition_math_numeric_test_completion_hybridp6_v1.json,
+compmath/cacc_spp,CompMath,CACC+SPP,0.5024 / 0.6173 / 0.3101,0.4636 / 0.5421 / 0.2513,-0.0588,0.5320 / 0.5499 / 0.2926,-0.0175,fresh_rerun_large_gap_fallback_available,fallback_close,Experiment/analysis/results/repro20260607_compmath_cacc_spp_full_reconstructed_v1.json,Experiment/analysis/results/candidate_salvage_2026_04_28/summary_metrics_E01_compmath_numeric_salvage_amc_sch.json
+mmlu_pro/base,MMLU-Pro,Base,0.4072 / 0.5800 / 0.2362,,,,,partial_provenance_prediction_logs_missing,partial,main.tex / Appendix C provenance,
+mmlu_pro/spp,MMLU-Pro,SPP,0.4921 / 0.5411 / 0.2663,,,0.6320 / 0.4285 / 0.2708,+0.0045,direct_rerun_pending_fallback_available,pending,repro20260607_mmlu_pro_spp_direct_qwen8b_full_reconstructed_v1 pending,Experiment/analysis/results/ser_generate_then_rerank_qwen3_17b_mmlu_pro_test_hetero_qwen8bproposerv2plusv3_benchmarkaware_v1.json
+mmlu_pro/cacc,MMLU-Pro,CACC,0.4767 / 0.4777 / 0.2277,,,,,artifact_reproduced,artifact,Experiment/analysis/results/routec_p1_mmlu_pro_cacc_v1.json,
+mmlu_pro/cacc_spp,MMLU-Pro,CACC+SPP,0.5527 / 0.5312 / 0.2936,,,,,artifact_reproduced_display_ratio,artifact,Experiment/analysis/results/routec_p1_mmlu_pro_cacc_sp_v1.json,
+gpqa/base,GPQA,Base,0.1919 / 0.2897 / 0.0556,,,,,artifact_reproduced_display_ratio,artifact,Experiment/analysis/results/routec_p2_gpqa_diamond_diverse_base_v1.json,
+gpqa/spp,GPQA,SPP,0.4724 / 0.4197 / 0.1983,0.3939 / 0.5000 / 0.1970,-0.0013,,,fresh_rerun_close_final_different_decomposition,close,Experiment/analysis/results/repro20260607_gpqa_spp_direct_qwen8b_full_reconstructed_chunked_b8_v1.json,
+gpqa/cacc,GPQA,CACC,0.4545 / 0.4222 / 0.1919,,,,,artifact_reproduced,artifact,Experiment/analysis/results/routec_p2_gpqa_diamond_cacc_v1.json,
+gpqa/cacc_spp,GPQA,CACC+SPP,0.4899 / 0.5258 / 0.2576,,,,,artifact_reproduced,artifact,Experiment/analysis/results/routec_p2_gpqa_diamond_cacc_sp_v1.json,
