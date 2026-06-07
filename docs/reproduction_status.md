@@ -67,6 +67,12 @@ targeted exact-value search did not recover an independent full-size artifact
 for the paper SPP O/V/F row, so this should remain fallback evidence rather
 than exact SPP provenance.
 
+A refreshed internal scan of MMLU-named JSON/JSONL artifacts found the same
+boundary: the closest full-size final-accuracy artifact remains this
+heterogeneous fallback. A half-dataset shard metric is almost exact on final
+accuracy (`0.2662898936` over 6,016 examples), and some 128-example smoke runs
+are closer on O/V/F, but neither is full-size direct SPP provenance.
+
 Recovered provenance for that fallback:
 
 - Base pool: `mmlu_pro_test_generated_candidates_qwen3_17b_base_filtered_t07_s16k8_hybridp6_v1.jsonl`
@@ -79,7 +85,7 @@ Recovered provenance for that fallback:
 
 | Dataset | Variant | Paper final | Internal status |
 | --- | --- | ---: | --- |
-| MMLU-Pro | SPP | 0.2663 | long Qwen3-8B generation still running; last checked 2026-06-07 22:26 CST, parent PID `795448` and generator child PID `795452` alive on GPU0, no candidate pool or final summary written yet. Backup chunked-b4 run `repro20260607_mmlu_pro_spp_direct_qwen8b_full_reconstructed_chunked_b4_v1` is alive on GPU1 with PID `986646` and reached `processed 40 examples`. Backup chunked-b8 run `repro20260607_mmlu_pro_spp_direct_qwen8b_full_reconstructed_chunked_b8_v1` is alive on GPU2 with PID `995653` and reached `processed 50 examples`; the dataset has 12032 examples, so this is still a long-running generation job rather than a failed result. |
+| MMLU-Pro | SPP | 0.2663 | long Qwen3-8B generation still running; last checked 2026-06-07 22:29 CST, parent PID `795448` and generator child PID `795452` alive on GPU0, no candidate pool or final summary written yet. Backup chunked-b4 run `repro20260607_mmlu_pro_spp_direct_qwen8b_full_reconstructed_chunked_b4_v1` is alive on GPU1 with PID `986646` and reached `processed 50 examples`. Backup chunked-b8 run `repro20260607_mmlu_pro_spp_direct_qwen8b_full_reconstructed_chunked_b8_v1` is alive on GPU2 with PID `995653` and reached `processed 70 examples`; the dataset has 12032 examples, so this is still a long-running generation job rather than a failed result. |
 
 Update this file after those runs finish.
 
