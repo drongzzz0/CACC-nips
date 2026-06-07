@@ -79,7 +79,7 @@ Recovered provenance for that fallback:
 
 | Dataset | Variant | Paper final | Internal status |
 | --- | --- | ---: | --- |
-| MMLU-Pro | SPP | 0.2663 | long Qwen3-8B generation still running; last checked 2026-06-07 22:14 CST, parent PID `795448` and generator child PID `795452` alive on GPU0, no candidate pool or final summary written yet. Backup chunked-b4 run `repro20260607_mmlu_pro_spp_direct_qwen8b_full_reconstructed_chunked_b4_v1` is also alive on GPU1 with PID `986646`; first progress log observed. |
+| MMLU-Pro | SPP | 0.2663 | long Qwen3-8B generation still running; last checked 2026-06-07 22:21 CST, parent PID `795448` and generator child PID `795452` alive on GPU0, no candidate pool or final summary written yet. Backup chunked-b4 run `repro20260607_mmlu_pro_spp_direct_qwen8b_full_reconstructed_chunked_b4_v1` is alive on GPU1 with PID `986646` and reached `processed 30 examples`. Backup chunked-b8 run `repro20260607_mmlu_pro_spp_direct_qwen8b_full_reconstructed_chunked_b8_v1` is alive on GPU2 with PID `995653` and reached `processed 20 examples`. |
 
 Update this file after those runs finish.
 
