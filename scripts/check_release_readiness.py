@@ -65,7 +65,7 @@ def risk_bucket(row: dict[str, Any]) -> str:
     if fallback_delta is not None and release_delta is not None:
         release_magnitude = abs(release_delta)
         fallback_magnitude = abs(fallback_delta)
-        if release_magnitude > 0.05:
+        if release_delta < -0.05:
             if fallback_magnitude <= 0.02:
                 return "fallback_close"
             if fallback_magnitude <= 0.05:
@@ -75,6 +75,8 @@ def risk_bucket(row: dict[str, Any]) -> str:
     magnitude = abs(primary_delta)
     if magnitude <= 0.02:
         return "close"
+    if primary_delta > 0:
+        return "higher_final"
     if magnitude <= 0.05:
         return "watch"
     return "large_gap"
@@ -85,7 +87,7 @@ def severity_for_bucket(bucket: str) -> str:
         return "blocker"
     if bucket == "pending":
         return "pending"
-    if bucket in {"partial", "watch", "fallback_watch", "fallback_close"}:
+    if bucket in {"partial", "watch", "higher_final", "fallback_watch", "fallback_close"}:
         return "caveat"
     return "ok"
 
@@ -161,7 +163,7 @@ def markdown_report(records: list[dict[str, Any]], summary: dict[str, Any]) -> s
         [
             "",
             "Default practical readiness passes when there are no `large_gap` or `unknown` rows.",
-            "`pending`, `partial`, `watch`, and fallback rows still need release notes or follow-up evidence.",
+            "`pending`, `partial`, `watch`, `higher_final`, and fallback rows still need release notes or follow-up evidence.",
             "Use `--strict` to fail on any pending row or caveat.",
         ]
     )

@@ -73,7 +73,7 @@ def risk_bucket(row: dict[str, Any]) -> str:
     if fallback_delta is not None and release_delta is not None:
         release_magnitude = abs(release_delta)
         fallback_magnitude = abs(fallback_delta)
-        if release_magnitude > 0.05:
+        if release_delta < -0.05:
             if fallback_magnitude <= 0.02:
                 return "fallback_close"
             if fallback_magnitude <= 0.05:
@@ -83,6 +83,8 @@ def risk_bucket(row: dict[str, Any]) -> str:
     magnitude = abs(primary_delta)
     if magnitude <= 0.02:
         return "close"
+    if primary_delta > 0:
+        return "higher_final"
     if magnitude <= 0.05:
         return "watch"
     return "large_gap"
@@ -147,7 +149,7 @@ def markdown_report(records: list[dict[str, str]], manifest: dict[str, Any]) -> 
     lines.extend(
         [
             "",
-            "Buckets are derived from final accuracy only: artifact, partial, pending, close (`<=0.02`), watch (`<=0.05`), or large_gap.",
+            "Buckets are derived from final accuracy only: artifact, partial, pending, close (`<=0.02`), higher_final, watch (`<=0.05` below paper), or large_gap.",
             "Rows labeled fallback_close or fallback_watch have a large fresh-rerun gap but a closer documented fallback reference.",
             "Report oracle coverage, verifier efficiency given oracle, and final accuracy together when interpreting any rerun.",
         ]

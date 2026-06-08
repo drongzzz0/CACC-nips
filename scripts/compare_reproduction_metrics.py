@@ -125,6 +125,8 @@ def classify_final_delta(delta: float, close: float, watch: float) -> str:
     magnitude = abs(delta)
     if magnitude <= close:
         return "close"
+    if delta > 0:
+        return "higher_final"
     if magnitude <= watch:
         return "watch"
     return "large_gap"

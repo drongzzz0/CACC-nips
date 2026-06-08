@@ -16,19 +16,22 @@ The main paper table has 16 dataset/variant rows. At the current checkpoint:
   documented display-ratio convention.
 - 1 row has provenance but lacks the current prediction log needed for full
   recomputation.
-- 5 SPP-family rows have completed reconstructed reruns. They do not exactly
-  reproduce the original oracle/verifier decomposition. GSM8K and GPQA are
-  close on final accuracy; CompMath is lower and should be treated as the main
-  open-source reproduction risk.
-- 1 SPP-family row is still running in the internal audit.
+- 6 SPP-family rows have completed reconstructed reruns. They do not exactly
+  reproduce the original oracle/verifier decomposition. GSM8K, MMLU-Pro, and
+  GPQA are close or higher on final accuracy; CompMath is lower and should be
+  treated as the main open-source reproduction risk.
+- The MMLU-Pro SPP b8/checkpoint backup runs are still running internally as
+  corroboration, but the release-facing direct rerun result is complete.
 
 The practical release question is whether fresh reruns collapse relative to the
 paper. GSM8K and GPQA reconstructed reruns are close on final accuracy, but the
 CompMath SPP-family reruns are lower than the paper. A fresh CompMath
 CACC+SPP completion reconstruction was lower by about 5.9 percentage points,
 although a recovered full-size salvage/repair fallback is lower by about 1.8
-percentage points. A recovered full-size MMLU-Pro heterogeneous-pool fallback
-is within about 0.5 percentage points of the paper SPP final accuracy.
+percentage points. The fresh direct MMLU-Pro SPP rerun is higher than the paper
+final accuracy by about 6.3 percentage points while changing the O/V split. A
+recovered full-size MMLU-Pro heterogeneous-pool fallback is within about 0.5
+percentage points of the paper SPP final accuracy.
 
 ## Completed Reconstructed Reruns
 
@@ -39,6 +42,7 @@ is within about 0.5 percentage points of the paper SPP final accuracy.
 | CompMath | SPP | 0.2776 | 0.2454 | -0.0322 | main current release-risk row |
 | CompMath | CACC+SPP | 0.3101 | 0.2513 | -0.0588 | largest current release-risk row |
 | CompMath | salvage/repair fallback | 0.3101 | 0.2926 | -0.0175 | recovered full-size fallback, not exact table provenance |
+| MMLU-Pro | SPP | 0.2663 | 0.3297 | +0.0634 | higher final, different O/V split |
 | MMLU-Pro | heterogeneous-pool fallback | 0.2663 | 0.2708 | +0.0045 | recovered full-size fallback, different O/V split |
 | GPQA | SPP | 0.1983 | 0.1970 | -0.0013 | close final, different O/V split |
 
@@ -76,10 +80,17 @@ Recovered provenance for that fallback:
   2026-06-07: candidates and prediction logs have 3,199 rows, repair prompts
   have 6,396 rows, and the recorded oracle/verifier counts match the summary.
 
+The fresh MMLU-Pro SPP direct rerun `repro20260607_mmlu_pro_spp_direct_qwen8b_full_reconstructed_v1`
+completed over 12,032 examples. It scored O/V/F `0.5962 / 0.5530 / 0.3297`
+against the paper SPP row `0.4921 / 0.5411 / 0.2663`. This is favorable for
+practical open-source reproducibility because the final accuracy is higher, but
+it is still not exact paper-row provenance because the oracle/verifier
+decomposition differs.
+
 The MMLU-Pro heterogeneous-pool fallback is based on a recovered full-size pool
 merge over 12,032 examples. It merges the base pool with two benchmark-aware
 completion pools, then reranks the fixed merged pool. Its final accuracy is
-close to the paper SPP row, but the oracle/verifier split is different. A
+also close to the paper SPP row, but the oracle/verifier split is different. A
 targeted exact-value search did not recover an independent full-size artifact
 for the paper SPP O/V/F row, so this should remain fallback evidence rather
 than exact SPP provenance.
@@ -98,13 +109,13 @@ Recovered provenance for that fallback:
 - Merge protocol: `max_candidates=8`, `protect_prefix_candidates=1`, `max_aux_insertions=3`, `dedupe_mode=numeric_or_text`.
 - Rerank protocol: fixed-pool first/base/verifier evaluation with Qwen3-1.7B and the verifier adapter.
 
-## Pending Rows
+## Background Corroboration Runs
 
 | Dataset | Variant | Paper final | Internal status |
 | --- | --- | ---: | --- |
-| MMLU-Pro | SPP | 0.2663 | long Qwen3-8B generation still running; last checked 2026-06-08 09:42 CST. Four active parent/child route processes were visible on `ser`, and no final summary or generation artifact existed yet. Backup chunked-b4 run `repro20260607_mmlu_pro_spp_direct_qwen8b_full_reconstructed_chunked_b4_v1` reached `processed 2480/12032` at about `16.66s/ex`. Backup chunked-b8 run `repro20260607_mmlu_pro_spp_direct_qwen8b_full_reconstructed_chunked_b8_v1` reached `processed 4710/12032` at about `8.71s/ex`. Checkpointed b8 run `repro20260608_mmlu_pro_spp_direct_qwen8b_full_reconstructed_checkpointed_b8_v1` reached `processed 4008/12032`, with independent rescoring giving partial first/oracle accuracies `0.329840 / 0.623253`. This partial oracle is below the recovered heterogeneous fallback oracle `0.632000`, but it is not a final global result because the raw MMLU-Pro file is category-block sorted and the prefix is still inside chemistry (`603/1132` chemistry rows processed, 529 chemistry rows remaining before later categories). Treat this as a current risk signal, not as final O/V/F or category-complete evidence. |
+| MMLU-Pro | SPP | 0.2663 | Direct rerun is complete. As of 2026-06-08 11:57 CST, GPU0 was free, the slow b4 backup route had been stopped to free GPU1, and the b8 plus checkpointed-b8 backup routes were still running on GPU2/GPU3 as corroboration. These backup runs are not required for the current release-facing status unless they contradict the completed direct rerun. |
 
-Update this file after those runs finish.
+Update this section after the b8/checkpointed-b8 corroboration runs finish.
 
 ## Command Templates
 

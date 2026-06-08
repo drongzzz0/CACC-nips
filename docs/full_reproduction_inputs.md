@@ -44,7 +44,7 @@ bucket, but report all three metrics.
 | Direct SPP rows | Fresh generation may have similar final accuracy but different O/V split. | Benchmark JSONL, generator model, reranker model, verifier adapter, generation settings, parser. |
 | CACC+SPP completion rows | Depends on base pool plus CACC completion generation. | Base candidate pool, motif tags or compatible diagnostics, generator model, reranker model, verifier adapter. |
 | CompMath CACC+SPP | Main current risk row. Fresh reconstruction was lower than paper; recovered repair fallback is closer but is not exact paper provenance. | Completion pool, verifier predictions for repair targeting, repair generator settings, reranker/verifier artifacts. |
-| MMLU-Pro SPP | Direct rerun is pending in the internal audit; heterogeneous-pool fallback is close on final accuracy but differs in O/V split. | Full MMLU-Pro JSONL, base pool, optional benchmark-aware proposer pools, reranker/verifier artifacts. |
+| MMLU-Pro SPP | Fresh direct rerun is complete and higher than the paper final accuracy, but the O/V split differs from the paper row; heterogeneous-pool fallback remains close on final accuracy with a different split. | Full MMLU-Pro JSONL, generator model, reranker model, verifier adapter, generation settings, parser, optional benchmark-aware proposer pools for the fallback. |
 
 ## CompMath Fallback Artifact Set
 

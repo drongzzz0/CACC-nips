@@ -96,10 +96,12 @@
       "dataset": "MMLU-Pro",
       "variant": "SPP",
       "paper": {"oracle": 0.4921, "v_given_o": 0.5411, "final": 0.2663},
-      "release_status": "direct_rerun_pending_fallback_available",
+      "release_status": "fresh_rerun_higher_final_different_decomposition",
+      "release_reference": {"oracle": 0.5962, "v_given_o": 0.5530, "final": 0.3297},
       "fallback_reference": {"oracle": 0.6320, "v_given_o": 0.4285, "final": 0.2708},
-      "evidence": "repro20260607_mmlu_pro_spp_direct_qwen8b_full_reconstructed_v1 pending",
-      "fallback_evidence": "Experiment/analysis/results/ser_generate_then_rerank_qwen3_17b_mmlu_pro_test_hetero_qwen8bproposerv2plusv3_benchmarkaware_v1.json"
+      "evidence": "Experiment/analysis/results/repro20260607_mmlu_pro_spp_direct_qwen8b_full_reconstructed_v1.json",
+      "fallback_evidence": "Experiment/analysis/results/ser_generate_then_rerank_qwen3_17b_mmlu_pro_test_hetero_qwen8bproposerv2plusv3_benchmarkaware_v1.json",
+      "provenance_note": "Fresh full-size Qwen3-8B direct rerun improves final accuracy relative to the paper row while changing the oracle/verifier split; b8/checkpoint backup reruns remain internal corroboration runs."
     },
     {
       "row_id": "mmlu_pro/cacc",
