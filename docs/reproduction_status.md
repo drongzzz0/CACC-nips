@@ -8,7 +8,7 @@ rerun with matched models and decoding settings.
 
 ## Current Internal Audit
 
-Internal audit date: 2026-06-07.
+Internal audit date: 2026-06-08.
 
 The main paper table has 16 dataset/variant rows. At the current checkpoint:
 
@@ -102,7 +102,7 @@ Recovered provenance for that fallback:
 
 | Dataset | Variant | Paper final | Internal status |
 | --- | --- | ---: | --- |
-| MMLU-Pro | SPP | 0.2663 | long Qwen3-8B generation still running; last checked 2026-06-08 04:50 CST. Four active parent/child route processes were visible on `ser`. The original non-checkpointed job is alive but has not written a candidate pool or final summary yet. Backup chunked-b4 run `repro20260607_mmlu_pro_spp_direct_qwen8b_full_reconstructed_chunked_b4_v1` reached `processed 1410/12032` at about `16.80s/ex`. Backup chunked-b8 run `repro20260607_mmlu_pro_spp_direct_qwen8b_full_reconstructed_chunked_b8_v1` reached `processed 2670/12032` at about `8.79s/ex`. Checkpointed b8 run `repro20260608_mmlu_pro_spp_direct_qwen8b_full_reconstructed_checkpointed_b8_v1` reached `processed 1898/12032`, with progress JSON and independent rescoring both giving partial first/oracle accuracies `0.229189 / 0.534247`. No final summary exists yet. The dataset has 12032 examples, so this remains a long-running generation job rather than a failed result. Current partial oracle evidence remains close to the paper SPP verifier component (`0.5411`); business is complete at oracle `0.579214`, law is complete at oracle `0.499546`, and psychology has just started with only 8 rows at oracle `0.875000`. Treat this as reassuring early risk evidence, not final O/V/F or category-complete evidence. |
+| MMLU-Pro | SPP | 0.2663 | long Qwen3-8B generation still running; last checked 2026-06-08 09:42 CST. Four active parent/child route processes were visible on `ser`, and no final summary or generation artifact existed yet. Backup chunked-b4 run `repro20260607_mmlu_pro_spp_direct_qwen8b_full_reconstructed_chunked_b4_v1` reached `processed 2480/12032` at about `16.66s/ex`. Backup chunked-b8 run `repro20260607_mmlu_pro_spp_direct_qwen8b_full_reconstructed_chunked_b8_v1` reached `processed 4710/12032` at about `8.71s/ex`. Checkpointed b8 run `repro20260608_mmlu_pro_spp_direct_qwen8b_full_reconstructed_checkpointed_b8_v1` reached `processed 4008/12032`, with independent rescoring giving partial first/oracle accuracies `0.329840 / 0.623253`. This partial oracle is below the recovered heterogeneous fallback oracle `0.632000`, but it is not a final global result because the raw MMLU-Pro file is category-block sorted and the prefix is still inside chemistry (`603/1132` chemistry rows processed, 529 chemistry rows remaining before later categories). Treat this as a current risk signal, not as final O/V/F or category-complete evidence. |
 
 Update this file after those runs finish.
 
