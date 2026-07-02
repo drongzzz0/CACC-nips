@@ -61,7 +61,7 @@ Remote inspection was read-only. The source project is not a git repository.
 
 ## Pre-Push Checklist
 
-- Choose and add a real `LICENSE` if the repository will be public.
+- License chosen: MIT, added as `LICENSE` on 2026-07-02.
 - Decide whether the paper TeX package should live in the same repository or a
   separate manuscript repository.
 - Run `python scripts/run_minimum_pipeline.py --allow-stub`.

@@ -184,5 +184,5 @@ for exact paper-row reproduction versus approximate code-level reruns.
 
 ## License
 
-No open-source license has been selected yet. Choose a license before making the
-GitHub repository public.
+This repository is released under the MIT License. See `LICENSE` for the full
+text.
