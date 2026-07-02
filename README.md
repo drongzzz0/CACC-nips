@@ -179,6 +179,22 @@ against the paper table. Candidate generation is stochastic and paper-level
 reproduction depends on the exact candidate pools, model checkpoints, verifier
 adapter, prompts, parser, and selection settings.
 
+Known reproduction caveats (summarized; details and provenance in
+`docs/reproduction_status.md`):
+
+- CompMath SPP-family rows are the main open-source reproduction risk. Fresh
+  reconstructed reruns landed below the paper final accuracy by about 3.2
+  (SPP) and 5.9 (CACC+SPP) percentage points; the best recovered full-size
+  fallback narrows the CACC+SPP gap to about 1.8 points but is not exact
+  paper-row provenance.
+- The MMLU-Pro SPP reference is a completed fresh direct rerun with a higher
+  final accuracy than the paper row and a different oracle/verifier split.
+  Optional backup corroboration runs were interrupted mid-generation and never
+  finished.
+- Exact oracle/verifier decompositions require the original candidate pools;
+  code-level reruns should be compared on final accuracy with the generation
+  protocol documented.
+
 See `docs/full_reproduction_inputs.md` for the concrete artifact classes needed
 for exact paper-row reproduction versus approximate code-level reruns.
 

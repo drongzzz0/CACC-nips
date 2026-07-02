@@ -20,8 +20,9 @@ The main paper table has 16 dataset/variant rows. At the current checkpoint:
   reproduce the original oracle/verifier decomposition. GSM8K, MMLU-Pro, and
   GPQA are close or higher on final accuracy; CompMath is lower and should be
   treated as the main open-source reproduction risk.
-- The MMLU-Pro SPP b8/checkpoint backup runs are still running internally as
-  corroboration, but the release-facing direct rerun result is complete.
+- The MMLU-Pro SPP b8/checkpoint backup corroboration runs were interrupted
+  mid-generation and never finished; the release-facing direct rerun result is
+  complete and stands alone. See "Background Corroboration Runs" below.
 
 The practical release question is whether fresh reruns collapse relative to the
 paper. GSM8K and GPQA reconstructed reruns are close on final accuracy, but the
@@ -113,9 +114,31 @@ Recovered provenance for that fallback:
 
 | Dataset | Variant | Paper final | Internal status |
 | --- | --- | ---: | --- |
-| MMLU-Pro | SPP | 0.2663 | Direct rerun is complete. As of 2026-06-08 11:57 CST, GPU0 was free, the slow b4 backup route had been stopped to free GPU1, and the b8 plus checkpointed-b8 backup routes were still running on GPU2/GPU3 as corroboration. These backup runs are not required for the current release-facing status unless they contradict the completed direct rerun. |
+| MMLU-Pro | SPP | 0.2663 | Direct rerun is complete. The optional b8 and checkpointed-b8 backup corroboration routes were interrupted mid-generation around 2026-06-08 12:43 CST and never finished; see below. |
 
-Update this section after the b8/checkpointed-b8 corroboration runs finish.
+Final corroboration outcome, verified against the internal cluster on
+2026-07-02:
+
+- Neither backup route completed. Both generation processes stopped around
+  2026-06-08 12:42-12:43 CST with no matching process remaining afterwards; the
+  host itself was not rebooted, so the runs were terminated rather than lost to
+  a crash.
+- The chunked-b8 route stopped at 5,890/12,032 generated examples. Its script
+  only writes the candidate pool at completion, so it left no candidate
+  artifact.
+- The checkpointed-b8 route stopped at 5,208/12,032 generated examples and left
+  a partial candidate JSONL plus a progress JSON. At the interruption point the
+  partial prefix scored first-candidate accuracy `1601/5208 = 0.3074` and
+  candidate-pool oracle `3152/5208 = 0.6052`. The dataset is category-block
+  sorted and the prefix ends inside the chemistry block, so these partial
+  numbers are category-biased and must not be read as full-run estimates.
+- Neither route reached reranking or verifier scoring, so no corroborating
+  O/V/F row exists. The release-facing MMLU-Pro SPP reference remains the
+  completed plain direct rerun (`0.5962 / 0.5530 / 0.3297`).
+- If corroboration is desired later, the checkpointed route can be resumed from
+  its 5,208-example checkpoint with the `--resume` flag of
+  `scripts/run_generate_then_rerank_eval_checkpointed.py`-style tooling instead
+  of restarting from scratch.
 
 ## Command Templates
 
