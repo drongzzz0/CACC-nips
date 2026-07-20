@@ -37,6 +37,12 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Allow manifest-only training when PEFT dependencies are unavailable.",
     )
+    parser.add_argument(
+        "--backend",
+        choices=("auto", "peft", "stub"),
+        default="auto",
+        help="Training backend passed to train_student.py; use 'stub' for a model-free smoke run.",
+    )
     return parser.parse_args()
 
 
@@ -120,6 +126,8 @@ def main() -> None:
         str(logs_dir),
         "--checkpoints-dir",
         str(checkpoints_dir),
+        "--backend",
+        args.backend,
     ]
     if args.allow_stub:
         train_cmd.append("--allow-stub")

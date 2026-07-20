@@ -45,12 +45,14 @@ stub mode below.
 Run the minimum reproducible pipeline on synthetic examples:
 
 ```bash
-python scripts/run_minimum_pipeline.py --allow-stub
+python scripts/run_minimum_pipeline.py --allow-stub --backend stub
 ```
 
 This writes outputs under `runs/minimum_pipeline/` and verifies that the JSONL
 schemas, supervision conversion, stub training manifest, prediction file, and
-exact-match report can be produced end to end.
+exact-match report can be produced end to end. `--backend stub` keeps the smoke
+test model-free; without it, an environment that already has the PEFT stack
+installed will attempt real training and fail on the placeholder model name.
 
 To inspect the current Table 1 reproduction targets and compare a full-run
 summary JSON against the paper values:
