@@ -9,9 +9,9 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from src.analysis.motif_utils import infer_candidate_tag, infer_problem_motif
-from src.eval.evaluate_predictions import extract_numeric_answer, normalize_answer
-from src.utils.io_utils import read_jsonl, write_json, write_jsonl
+from src.analysis.motif_utils import infer_candidate_tag, infer_problem_motif  # noqa: E402
+from src.eval.evaluate_predictions import answer_mode_for_record, answers_match  # noqa: E402
+from src.utils.io_utils import read_jsonl, write_json, write_jsonl  # noqa: E402
 
 
 def parse_args() -> argparse.Namespace:
@@ -24,12 +24,8 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def _is_correct(prediction: str, gold_answer: str) -> bool:
-    if normalize_answer(prediction) == normalize_answer(gold_answer):
-        return True
-    prediction_numeric = extract_numeric_answer(prediction)
-    gold_numeric = extract_numeric_answer(gold_answer)
-    return prediction_numeric is not None and gold_numeric is not None and prediction_numeric == gold_numeric
+def _is_correct(prediction: str, gold_answer: str, answer_mode: str) -> bool:
+    return answers_match(prediction, gold_answer, answer_mode=answer_mode)
 
 
 def main() -> None:
@@ -51,6 +47,7 @@ def main() -> None:
         example_count += 1
         problem = str(row["problem"])
         gold_answer = str(row["gold_answer"])
+        answer_mode = answer_mode_for_record(row)
         problem_motif = infer_problem_motif(problem)
         problem_motif_counts[problem_motif.label] += 1
 
@@ -62,7 +59,7 @@ def main() -> None:
             candidate_text = str(candidate_text)
             candidate_count += 1
             candidate_tag = infer_candidate_tag(problem, candidate_text)
-            candidate_correct = _is_correct(candidate_text, gold_answer)
+            candidate_correct = _is_correct(candidate_text, gold_answer, answer_mode)
             example_oracle_hit = example_oracle_hit or candidate_correct
 
             motif_counts[candidate_tag.motif.label] += 1
@@ -77,6 +74,7 @@ def main() -> None:
                 {
                     "example_id": str(row["example_id"]),
                     "dataset": str(row.get("dataset", "unknown")),
+                    "answer_mode": answer_mode,
                     "candidate_index": candidate_index,
                     "candidate_text": candidate_text,
                     "candidate_is_correct": candidate_correct,

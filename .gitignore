@@ -18,7 +18,7 @@ logs/
 checkpoints/
 models/
 datasets/
-data/
+/data/
 tmp/
 cache/
 .cache/
